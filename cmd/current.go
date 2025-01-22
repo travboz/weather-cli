@@ -20,12 +20,12 @@ var currentCmd = &cobra.Command{
 	Long: `Get the current weather for a city you input by either searching
 	by city name or latitude/longitude.
 
-	Also, specify the preferred units as well (metric as default).
+Also, specify the preferred units as well (metric as default).
 	
-	Example usage:
-	weather current --city "Sydney"
-	weather current --lat -33.87 --lon 151.21
-	weather current -c "New York" -u imperial
+Example usage:
+weather current --city "Sydney"
+weather current --lat -33.87 --lon 151.21
+weather current -c "New York" -u imperial
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// Enforce mutual dependency between lat/lon

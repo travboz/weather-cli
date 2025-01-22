@@ -1,6 +1,5 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -8,18 +7,19 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/travboz/weather-cli/cmd/config"
 )
 
 // configCmd represents the config command
 var configCmd = &cobra.Command{
 	Use:   "config",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Manage weather CLI configuration settings",
+	Long: `Configure and manage settings for the weather CLI, such as default location and the preferred units (Celsius/Fahrenheit),
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+weather config set --unit metric --default-city "Brisbane"
+weather config show
+weather config reset
+`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("config called")
 	},
@@ -27,6 +27,10 @@ to quickly create a Cobra application.`,
 
 func init() {
 	rootCmd.AddCommand(configCmd)
+
+	configCmd.AddCommand(config.SetCmd)
+	configCmd.AddCommand(config.ShowCmd)
+	configCmd.AddCommand(config.ResetCmd)
 
 	// Here you will define your flags and configuration settings.
 

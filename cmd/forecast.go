@@ -9,31 +9,39 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	forecastCity string
+	dayCount     int
+	hourly       bool
+)
+
 // forecastCmd represents the forecast command
 var forecastCmd = &cobra.Command{
 	Use:   "forecast",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Get the weather forecast for a location",
+	Long: `Retrieve detailed weather forecasts for a specified location, 
+	including temperature, precipitation, and other key weather conditions for a given number of days.
+	
+Example usage:
+weather forecast --city "Sydney" --days 5
+weather forecast --city "Sydney" --hourly
+weather forecast -c "Tokyo" -d 3
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("forecast called")
+		fmt.Print("forecast called")
+
+		if hourly {
+			fmt.Printf("\tand fetching hourly forecast for %s...", forecastCity)
+		} else {
+			fmt.Printf("\tand fetching %d-day forecast for %s...", dayCount, forecastCity)
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(forecastCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// forecastCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// forecastCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	forecastCmd.Flags().StringVarP(&forecastCity, "city", "c", "", "The city to search for alerts")
+	forecastCmd.Flags().IntVarP(&dayCount, "days", "d", 7, "Number of days")
+	forecastCmd.Flags().BoolVarP(&hourly, "hourly", "h", false, "Get an hourly forecast instead of daily")
 }

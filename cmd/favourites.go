@@ -16,8 +16,8 @@ var favouritesCmd = &cobra.Command{
 	Long: `Fetch the weather for all of the locations that you
 	have saved.
 	
-	Example usage:
-	weather favorites
+Example usage:
+weather favorites
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("fetching weather for all saved locations")

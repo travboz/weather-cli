@@ -17,11 +17,10 @@ var favouriteCmd = &cobra.Command{
 	Long: `Manage your favourite cities around the world by adding to,
 	removing from, and listing all them. Can only add by 'city' designation.
 	
-	Example usage:
-	weather favorite add --city "Melbourne"
-	weather favorite list
-	weather favorite remove "Melbourne"
-
+Example usage:
+weather favorite add --city "Melbourne"
+weather favorite list
+weather favorite remove "Melbourne"
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("favourite called")
