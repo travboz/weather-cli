@@ -19,8 +19,7 @@ var (
 var forecastCmd = &cobra.Command{
 	Use:   "forecast",
 	Short: "Get the weather forecast for a location",
-	Long: `Retrieve detailed weather forecasts for a specified location, 
-	including temperature, precipitation, and other key weather conditions for a given number of days.
+	Long: `Retrieve detailed weather forecasts for a specified location, including temperature, precipitation, and other key weather conditions for a given number of days.
 	
 Example usage:
 weather forecast --city "Sydney" --days 5

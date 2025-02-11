@@ -10,7 +10,7 @@ import (
 )
 
 // resetCmd represents the reset command
-var ResetCmd = &cobra.Command{
+var resetCmd = &cobra.Command{
 	Use:   "reset",
 	Short: "Reset configuration settings",
 	Long: `Restore all configuration settings to their default values.
@@ -24,14 +24,6 @@ weather config reset
 }
 
 func init() {
+	ConfigCmd.AddCommand(resetCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// resetCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// resetCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

@@ -12,7 +12,7 @@ var (
 )
 
 // setCmd represents the set command
-var SetCmd = &cobra.Command{
+var setCmd = &cobra.Command{
 	Use:   "set",
 	Short: "Set a configuration value",
 	Long: `Update a specific configuration setting, such as the default city or temperature units. 
@@ -33,6 +33,7 @@ weather config set --unit "imperial"
 }
 
 func init() {
-	SetCmd.Flags().StringVar(&unit, "unit", "", "Set temperature unit (metric/imperial)")
-	SetCmd.Flags().StringVar(&defaultCity, "default-city", "", "Set the default city for weather queries")
+	setCmd.Flags().StringVar(&unit, "unit", "", "Set temperature unit (metric/imperial)")
+	setCmd.Flags().StringVar(&defaultCity, "default-city", "", "Set the default city for weather queries")
+	ConfigCmd.AddCommand(setCmd)
 }

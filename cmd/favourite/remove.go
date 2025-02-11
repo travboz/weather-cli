@@ -12,11 +12,10 @@ import (
 var cityRemove string
 
 // removeCmd represents the remove command
-var RemoveCmd = &cobra.Command{
+var removeCmd = &cobra.Command{
 	Use:   "remove",
 	Short: "Remove a location from favourites",
-	Long: `Delete a saved favourite location by specifying its name or coordinates, ensuring it no longer 
-	appears in your favourites list.
+	Long: `Delete a saved favourite location by specifying its name or coordinates, ensuring it no longer appears in your favourites list.
 	
 	Example usage:
 	weather favourite remove -c "Melbourne"
@@ -28,5 +27,6 @@ var RemoveCmd = &cobra.Command{
 }
 
 func init() {
-	RemoveCmd.Flags().StringVarP(&cityRemove, "city", "c", "", "The city to search for alerts")
+	removeCmd.Flags().StringVarP(&cityRemove, "city", "c", "", "The city to search for alerts")
+	FavouriteCmd.AddCommand(removeCmd)
 }

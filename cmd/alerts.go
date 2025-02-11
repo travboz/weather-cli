@@ -15,9 +15,9 @@ var alertsCmd = &cobra.Command{
 	Short: "Displays severe weather warnings if available",
 	Long: `Show any future alerts that could occur at a location in the next day.
 
-	Example usage:
-	weather alerts --city "Sydney"
-	weather alerts -c "London"
+Example usage:
+weather alerts --city "Sydney"
+weather alerts -c "London"
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
 		city := cmd.Flags().Lookup("city").Value.String()

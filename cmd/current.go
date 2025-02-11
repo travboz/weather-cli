@@ -17,8 +17,7 @@ var lat, lon float64
 var currentCmd = &cobra.Command{
 	Use:   "current",
 	Short: "Get the current weather in a city",
-	Long: `Get the current weather for a city you input by either searching
-	by city name or latitude/longitude.
+	Long: `Get the current weather for a city you input by either searching by city name or latitude/longitude.
 
 Also, specify the preferred units as well (metric as default).
 	

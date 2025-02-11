@@ -7,6 +7,8 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/travboz/weather-cli/cmd/config"
+	"github.com/travboz/weather-cli/cmd/favourite"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -28,6 +30,19 @@ func Execute() {
 	}
 }
 
+func addSubcommandPalettes() {
+	/*
+		net is added as a palette
+		the package `net` gets added and all that is within net is kept private.
+	*/
+	rootCmd.AddCommand(config.ConfigCmd)
+
+	// now we add the info palette of commands
+	rootCmd.AddCommand(favourite.FavouriteCmd)
+
+}
+
 func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	addSubcommandPalettes()
 }
