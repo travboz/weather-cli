@@ -8,6 +8,8 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/travboz/weather-cli/internal/api"
+	"github.com/travboz/weather-cli/internal/service"
 )
 
 var city string
@@ -45,7 +47,11 @@ weather current -c "New York" -u imperial
 			fmt.Printf("Fetching weather for coordinates: %f, %f\n", lat, lon)
 		}
 
-		return nil
+		// Initialize API client and service
+		client := api.NewClient()
+		service := service.NewService(client)
+
+		return service.GetCurrentWeather(city, lat, lon)
 	},
 }
 
