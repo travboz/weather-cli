@@ -52,3 +52,69 @@ func (s *Service) GetCurrentWeather(city string, lat, long float64) error {
 
 	return nil
 }
+
+func (s *Service) GetDailyForecast(city string, lat, long float64, days int) error {
+	if city == "" && (lat == 0.0 || long == 0.0) {
+		return errors.New("you must provide either a city or both latitude and longitude")
+	}
+
+	forecastDays, err := s.apiClient.FetchForecastForDays(city, lat, long, days)
+	if err != nil {
+		return fmt.Errorf("failed to fetch current weather data from service: %w", err)
+	}
+
+	fmt.Printf("Daily weather forecast:\n")
+	for _, day := range forecastDays.Forecast.Forecastday {
+		fmt.Printf(
+			"Date: %s\n"+
+				"Temperature: Max %.1f°C (%.1f°F) | Min %.1f°C (%.1f°F)\n"+
+				"Chance of Rain: %d%% | Will it rain: %t\n"+
+				"Chance of Snow: %d%% | Will it snow: %t\n"+
+				"Wind: %.1f mph (%.1f kph)\n"+
+				"Condition: %s\n\n",
+			day.Date,
+			day.Day.MaxtempC, day.Day.MaxtempF,
+			day.Day.MintempC, day.Day.MintempF,
+			day.Day.DailyChanceOfRain, day.Day.DailyWillItRain == 1,
+			day.Day.DailyChanceOfSnow, day.Day.DailyWillItSnow == 1,
+			day.Day.MaxwindMph, day.Day.MaxwindKph,
+			day.Day.Condition.Text,
+		)
+
+	}
+
+	return nil
+}
+
+func (s *Service) GetHourlyForecast(city string, lat, long float64) error {
+	if city == "" && (lat == 0.0 || long == 0.0) {
+		return errors.New("you must provide either a city or both latitude and longitude")
+	}
+
+	hourlyForecast, err := s.apiClient.FetchForecastHourlyForNextDay(city, lat, long)
+	if err != nil {
+		return fmt.Errorf("failed to fetch current weather data from service: %w", err)
+	}
+
+	fmt.Println("Hourly Forecast:")
+	for _, hour := range hourlyForecast.Forecast.Forecastday[0].Hour {
+		fmt.Printf(
+			"Time: %s\n"+
+				"Temperature: %.1f°C (%.1f°F)\n"+
+				"Condition: %s\n"+
+				"Wind: %.1f mph (%.1f kph) from %s\n"+
+				"Chance of Rain: %d%% | Will it rain: %t\n"+
+				"Chance of Snow: %d%% | Will it snow: %t\n"+
+				"Humidity: %d%% | Cloud Cover: %d%%\n\n",
+			hour.Time,
+			hour.TempC, hour.TempF,
+			hour.Condition.Text,
+			hour.WindMph, hour.WindKph, hour.WindDir,
+			hour.ChanceOfRain, hour.WillItRain == 1,
+			hour.ChanceOfSnow, hour.WillItSnow == 1,
+			hour.Humidity, hour.Cloud,
+		)
+	}
+
+	return nil
+}

@@ -48,7 +48,7 @@ weather current -c "New York" -u imperial
 		}
 
 		// Initialize API client and service
-		client := api.NewClient()
+		client := api.NewClient("http://api.weatherapi.com/v1/current.json?")
 		service := service.NewService(client)
 
 		return service.GetCurrentWeather(city, lat, lon)
